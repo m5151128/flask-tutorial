@@ -56,7 +56,8 @@ def login_required(view):
 @app.route('/')
 def index():
     posts = Post.query.join(Post.users).order_by(Post.created).all()
-    return render_template('blog/index.html', posts=posts)
+    users = User.query.all()
+    return render_template('blog/index.html', posts=posts, users=users)
 
 
 @bp.route('/create', methods=('GET', 'POST'))
