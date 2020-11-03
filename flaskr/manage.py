@@ -2,6 +2,7 @@ import functools
 
 from datetime import datetime
 from flask import Flask, Blueprint, flash, g, redirect, render_template, request, session, url_for
+from flask_debugtoolbar import DebugToolbarExtension
 from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
@@ -17,6 +18,7 @@ migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
+toolbar = DebugToolbarExtension(app)
 
 class User(db.Model):
 
