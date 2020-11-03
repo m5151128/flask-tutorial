@@ -60,7 +60,7 @@ def index():
     return render_template('blog/index.html', posts=posts, users=users)
 
 
-@bp.route('/create', methods=('GET', 'POST'))
+@app.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
     if request.method == 'POST':
@@ -74,14 +74,11 @@ def create():
         if error is not None:
             flash(error)
         else:
-            db = get_db()
-            db.execute(
-                'INSERT INTO post (title, body, author_id)'
-                ' VALUES (?, ?, ?)',
-                (title, body, g.user['id'])
-            )
-            db.commit()
-            return redirect(url_for('blog.index'))
+            new_post = Post(title=title, body=body, author_id=session.get('user_id'))
+            db.session.add(new_post)
+            db.session.commit()
+
+            return redirect(url_for('index'))
 
     return render_template('blog/create.html')
 
