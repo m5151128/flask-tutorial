@@ -3,6 +3,7 @@ from flask import Flask, Blueprint, flash, g, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
+from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 app.config.from_object('flaskr.config')
@@ -40,25 +41,27 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
-        error = None
 
         if not username:
             error = 'Username is required.'
         elif not password:
             error = 'Password is required.'
-        elif db.execute(
-            'SELECT id FROM user WHERE username = ?', (username,)
-        ).fetchone() is not None:
-            error = 'User {} is already registered.'.format(username)
 
-        if error is None:
+        user = User.query.filter_by(name=username).first()
+
+        if user is None:
             db.execute(
                 'INSERT INTO user (username, password) VALUES (?, ?)',
                 (username, generate_password_hash(password))
             )
             db.commit()
+            new_user = User(name=username, password=generate_password_hash(password))
+            db.session.add(new_user)
+            db.session.commit()
+
             return redirect(url_for('login'))
+
+        error = 'User {} is already registered.'.format(username)
 
         flash(error)
 
