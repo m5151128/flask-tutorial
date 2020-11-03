@@ -208,11 +208,10 @@ def load_logged_in_user():
         g.user = User.query.filter_by(id=user_id).first()
 
 
-# @bp.route('/logout')
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
