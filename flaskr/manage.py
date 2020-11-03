@@ -121,7 +121,6 @@ def delete(id):
     return redirect(url_for('blog.index'))
 
 
-# @bp.route('/register', methods=('GET', 'POST'))
 @app.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
@@ -136,11 +135,6 @@ def register():
         user = User.query.filter_by(name=username).first()
 
         if user is None:
-            db.execute(
-                'INSERT INTO user (username, password) VALUES (?, ?)',
-                (username, generate_password_hash(password))
-            )
-            db.commit()
             new_user = User(name=username, password=generate_password_hash(password))
             db.session.add(new_user)
             db.session.commit()
