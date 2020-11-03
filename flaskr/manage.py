@@ -37,6 +37,8 @@ class Post(db.Model):
     title = db.Column(db.Text, nullable=False)
     body = db.Column(db.Text, nullable=False)
 
+    users = db.relationship('User', backref=db.backref('posts', lazy=True))
+
 
 def login_required(view):
     @functools.wraps(view)
@@ -49,14 +51,9 @@ def login_required(view):
     return wrapped_view
 
 
-@bp.route('/')
+@app.route('/')
 def index():
-    db = get_db()
-    posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
-    ).fetchall()
+    posts = Post.query.join(Post.users).order_by(Post.created).all()
     return render_template('blog/index.html', posts=posts)
 
 
