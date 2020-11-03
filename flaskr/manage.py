@@ -7,6 +7,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 app.config.from_object('flaskr.config')
+app.secret_key = 'hogehoge'
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
