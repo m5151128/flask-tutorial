@@ -109,14 +109,16 @@ def update(id):
     return render_template('blog/update.html', post=post)
 
 
-@bp.route('/<int:id>/delete', methods=('POST',))
+@app.route('/<int:id>/delete', methods=('POST',))
 @login_required
 def delete(id):
-    get_post(id)
-    db = get_db()
-    db.execute('DELETE FROM post WHERE id = ?', (id,))
-    db.commit()
-    return redirect(url_for('blog.index'))
+    # get_post(id)
+    post = Post.query.get_or_404(id)
+
+    db.session.delete(post)
+    db.session.commit()
+
+    return redirect(url_for('index'))
 
 
 @app.route('/register', methods=('GET', 'POST'))
