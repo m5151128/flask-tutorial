@@ -83,10 +83,11 @@ def create():
     return render_template('blog/create.html')
 
 
-@bp.route('/<int:id>/update', methods=('GET', 'POST'))
+@app.route('/<int:id>/update', methods=('GET', 'POST'))
 @login_required
 def update(id):
-    post = get_post(id)
+    # post = get_post(id)
+    post = Post.query.get_or_404(id)
 
     if request.method == 'POST':
         title = request.form['title']
@@ -99,14 +100,11 @@ def update(id):
         if error is not None:
             flash(error)
         else:
-            db = get_db()
-            db.execute(
-                'UPDATE post SET title = ?, body = ?'
-                ' WHERE id = ?',
-                (title, body, id)
-            )
-            db.commit()
-            return redirect(url_for('blog.index'))
+            post.title = title
+            post.body = body
+            db.session.commit()
+
+            return redirect(url_for('index'))
 
     return render_template('blog/update.html', post=post)
 
