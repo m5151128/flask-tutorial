@@ -1,3 +1,5 @@
+import functools
+
 from datetime import datetime
 from flask import Flask, Blueprint, flash, g, redirect, render_template, request, session, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -34,6 +36,17 @@ class Post(db.Model):
     created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     title = db.Column(db.Text, nullable=False)
     body = db.Column(db.Text, nullable=False)
+
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('login'))
+
+        return view(**kwargs)
+
+    return wrapped_view
 
 
 @bp.route('/')
@@ -205,17 +218,6 @@ def load_logged_in_user():
 def logout():
     session.clear()
     return redirect(url_for('index'))
-
-
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            return redirect(url_for('login'))
-
-        return view(**kwargs)
-
-    return wrapped_view
 
 
 if __name__ == '__main__':
