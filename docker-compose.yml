@@ -10,3 +10,24 @@ services:
     volumes:
       - ./:/var/www:delegated
     tty: true
+
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_PORT: 3306
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: flaskr
+      MYSQL_USER: root
+      MYSQL_PASSWORD:
+      TZ: ${TZ:-Asia/Tokyo}
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./docker/db/data:/var/lib/mysql
+      - ./docker/db/settings/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./docker/db/settings/sql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+    networks:
+      - default
