@@ -5,3 +5,4 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{user}:{password}@{host}/{db_name}?ch
       'db_name': "flaskr"
 })
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+DEBUG_TB_INTERCEPT_REDIRECTS = False
