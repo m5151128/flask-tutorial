@@ -105,6 +105,7 @@ def update(id):
         else:
             post.title = title
             post.body = body
+            post.updated_at = datetime.now()
             db.session.commit()
 
             return redirect(url_for('index'))
