@@ -13,9 +13,9 @@
       <header>
         <div>
           <h1>{{ post['title'] }}</h1>
-          <div class="about">by {{ users[post['author_id'] - 1]['name'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
+          <div class="about">by {{ users[post['user_id'] - 1]['name'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
         </div>
-        {% if g.user['id'] == post['author_id'] %}
+        {% if g.user['id'] == post['user_id'] %}
           <a class="action" href="{{ url_for('update', id=post['id']) }}">Edit</a>
         {% endif %}
       </header>
