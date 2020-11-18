@@ -34,7 +34,7 @@ class Post(db.Model):
     __tablename__ = 'posts'
 
     id = db.Column(db.Integer, primary_key=True)
-    author_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     title = db.Column(db.Text, nullable=False)
     body = db.Column(db.Text, nullable=False)
@@ -74,7 +74,7 @@ def create():
         if error is not None:
             flash(error)
         else:
-            new_post = Post(title=title, body=body, author_id=session.get('user_id'))
+            new_post = Post(title=title, body=body, user_id=session.get('user_id'))
             db.session.add(new_post)
             db.session.commit()
 
