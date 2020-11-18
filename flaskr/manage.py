@@ -35,7 +35,7 @@ class Post(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     title = db.Column(db.Text, nullable=False)
     body = db.Column(db.Text, nullable=False)
 
@@ -55,7 +55,7 @@ def login_required(view):
 
 @app.route('/')
 def index():
-    posts = Post.query.join(Post.users).order_by(Post.created).all()
+    posts = Post.query.join(Post.users).order_by(Post.created_at).all()
     users = User.query.all()
     return render_template('blog/index.html', posts=posts, users=users)
 
