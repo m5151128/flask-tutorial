@@ -74,7 +74,7 @@ def create():
         if error is not None:
             flash(error)
         else:
-            new_post = Post(title=title, body=body, author_id=session.get('user_id'))
+            new_post = Post(title=title, body=body, user_id=session.get('user_id'))
             db.session.add(new_post)
             db.session.commit()
 
