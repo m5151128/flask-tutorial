@@ -17,8 +17,8 @@ depends_on = None
 
 
 def upgrade():
-    pass
+    op.alter_column(table_name='posts', column_name='author_id', existing_type=sa.Integer, new_column_name='user_id')
 
 
 def downgrade():
-    pass
+    op.alter_column(table_name='posts', column_name='user_id', existing_type=sa.Integer, new_column_name='author_id')
