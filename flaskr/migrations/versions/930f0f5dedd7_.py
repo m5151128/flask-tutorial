@@ -17,7 +17,7 @@ depends_on = None
 
 
 def upgrade():
-    op.add_column('users', sa.Column('created_at', sa.DateTime(), nullable=False))
+    op.add_column('users', sa.Column('created_at', sa.DateTime(), nullable=False, server_default=sa.func.now()))
 
 
 def downgrade():
