@@ -17,8 +17,8 @@ depends_on = None
 
 
 def upgrade():
-    pass
+    op.alter_column(table_name='posts', column_name='created', existing_type=sa.DateTime, new_column_name='created_at')
 
 
 def downgrade():
-    pass
+    op.alter_column(table_name='posts', column_name='created_at', existing_type=sa.DateTime, new_column_name='created')
