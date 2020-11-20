@@ -1,5 +1,8 @@
 import functools
 
+from application import app, db
+from app.models.post import Post
+from app.models.user import User
 from datetime import datetime
 from flask import Flask, Blueprint, flash, g, redirect, render_template, request, session, url_for
 from flask_debugtoolbar import DebugToolbarExtension
@@ -8,11 +11,6 @@ from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from werkzeug.security import check_password_hash, generate_password_hash
 
-app = Flask(__name__)
-app.config.from_object('flaskr.config')
-app.secret_key = 'hogehoge'
-
-db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 manager = Manager(app)
