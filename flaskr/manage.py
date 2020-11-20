@@ -1,23 +1,15 @@
-import functools
-
-from flask import Flask, Blueprint, flash, g, redirect, render_template, request, session, url_for
-from flask_debugtoolbar import DebugToolbarExtension
-from flask_sqlalchemy import SQLAlchemy
+from app import *
+from app.models.post import Post
+from app.models.user import User
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from werkzeug.security import check_password_hash, generate_password_hash
 
-app = Flask(__name__)
-app.config.from_object('flaskr.config')
-app.secret_key = 'hogehoge'
 
-db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
-
-toolbar = DebugToolbarExtension(app)
 
 
 def login_required(view):

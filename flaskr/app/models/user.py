@@ -1,6 +1,6 @@
+from app import db
 from datetime import datetime
 
-db = SQLAlchemy(app)
 
 class User(db.Model):
 
