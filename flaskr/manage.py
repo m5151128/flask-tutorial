@@ -1,8 +1,7 @@
 import functools
 
 from application import app, db
-from app.models.post import Post
-from app.models.user import User
+from app.models import Post, User
 from datetime import datetime
 from flask import Flask, Blueprint, flash, g, redirect, render_template, request, session, url_for
 from flask_debugtoolbar import DebugToolbarExtension
