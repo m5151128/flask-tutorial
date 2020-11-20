@@ -1,5 +1,7 @@
 import functools
 
+from application import app, db
+from app.models import Post, User
 from datetime import datetime
 from flask import Flask, Blueprint, flash, g, redirect, render_template, request, session, url_for
 from flask_debugtoolbar import DebugToolbarExtension
@@ -8,41 +10,12 @@ from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from werkzeug.security import check_password_hash, generate_password_hash
 
-app = Flask(__name__)
-app.config.from_object('flaskr.config')
-app.secret_key = 'hogehoge'
-
-db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
 toolbar = DebugToolbarExtension(app)
-
-class User(db.Model):
-
-    __tablename__ = 'users'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
-
-class Post(db.Model):
-
-    __tablename__ = 'posts'
-
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    title = db.Column(db.Text, nullable=False)
-    body = db.Column(db.Text, nullable=False)
-
-    users = db.relationship('User', backref=db.backref('posts', lazy=True))
 
 
 def login_required(view):
@@ -210,7 +183,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    # app.register_blueprint(auth.bp)
-
     manager.run()
