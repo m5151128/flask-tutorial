@@ -17,8 +17,8 @@ depends_on = None
 
 
 def upgrade():
-    pass
+    op.execute("ALTER TABLE posts RENAME INDEX author_id to user_id")
 
 
 def downgrade():
-    pass
+    op.execute("ALTER TABLE posts RENAME INDEX user_id to author_id")
