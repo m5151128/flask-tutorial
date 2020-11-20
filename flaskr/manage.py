@@ -100,57 +100,6 @@ def delete(id):
     return redirect(url_for('index'))
 
 
-@app.route('/register', methods=('GET', 'POST'))
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-
-        if not username:
-            error = 'Username is required.'
-        elif not password:
-            error = 'Password is required.'
-
-        user = User.query.filter_by(name=username).first()
-
-        if user is None:
-            new_user = User(name=username, password=generate_password_hash(password))
-            db.session.add(new_user)
-            db.session.commit()
-
-            return redirect(url_for('login'))
-
-        error = 'User {} is already registered.'.format(username)
-
-        flash(error)
-
-    return render_template('auth/register.html')
-
-
-@app.route('/login', methods=('GET', 'POST'))
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        error = None
-
-        user = User.query.filter_by(name=username).first()
-
-        if user is None:
-            error = 'Incorrect username.'
-        elif not check_password_hash(user.password, password):
-            error = 'Incorrect password.'
-
-        if error is None:
-            session.clear()
-            session['user_id'] = user.id
-            return redirect(url_for('index'))
-
-        flash(error)
-
-    return render_template('auth/login.html')
-
-
 def get_post(id, check_author=True):
     post = get_db().execute(
         'SELECT p.id, title, body, created, author_id, username'
@@ -176,12 +125,6 @@ def load_logged_in_user():
         g.user = None
     else:
         g.user = User.query.filter_by(id=user_id).first()
-
-
-@app.route('/logout')
-def logout():
-    session.clear()
-    return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
