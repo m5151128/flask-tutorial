@@ -10,33 +10,33 @@
 ## git clone
 
 ```
-% git clone https://github.com/m5151128/flask-tutorial.git
+$ git clone https://github.com/m5151128/flask-tutorial.git
 ```
 
 ## docker環境構築
 
 ```
-% docker-compose up -d
+$ docker-compose up -d
 ```
 
 ## もろもろインストール
 
 ```
-% docker-compose exec app pip install -r requirements.txt
+$ docker-compose exec app_flaskr pip install -r requirements.txt
 ```
 
 ## migration実行
 
 ```
-# docker-compose exec app flask db upgrade
+$ docker-compose exec app_flaskr flask db upgrade
 ```
 
 ## flask環境実行
 
 ```
-# docker-compose exec app export FLASK_APP=flaskr/manage.py
-# docker-compose exec app export FLASK_ENV=development
-# docker-compose exec app flask run --host=0.0.0.0
+$ docker-compose exec app_flaskr export FLASK_APP=flaskr/manage.py
+$ docker-compose exec app_flaskr export FLASK_ENV=development
+$ docker-compose exec app_flaskr flask run --host=0.0.0.0
 ```
 
 http://0.0.0.0:5000/ にアクセス
