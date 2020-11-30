@@ -31,3 +31,10 @@ $ flask run --host=0.0.0.0
 ```
 
 http://0.0.0.0:5000/ にアクセス
+
+
+## mysql接続
+
+```
+$ docker-compose exec db_flaskr mysql -u root -proot flaskr
+```
