@@ -16,7 +16,7 @@
 ## docker環境構築
 
 ```
-% docker-compose up
+% docker-compose up -d
 ```
 
 ## もろもろインストール
