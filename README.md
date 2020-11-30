@@ -28,7 +28,6 @@
 ## migration実行
 
 ```
-# docker-compose exec app flask db init
 # docker-compose exec app flask db upgrade
 ```
 
