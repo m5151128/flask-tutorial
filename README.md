@@ -19,24 +19,15 @@ $ git clone https://github.com/m5151128/flask-tutorial.git
 $ docker-compose up -d
 ```
 
-## もろもろインストール
+## セットアップ
 
 ```
-$ docker-compose exec app_flaskr pip install -r requirements.txt
-```
-
-## migration実行
-
-```
-$ docker-compose exec app_flaskr flask db upgrade
-```
-
-## flask環境実行
-
-```
-$ docker-compose exec app_flaskr export FLASK_APP=flaskr/manage.py
-$ docker-compose exec app_flaskr export FLASK_ENV=development
-$ docker-compose exec app_flaskr flask run --host=0.0.0.0
+$ docker-compose exec app_flaskr bash
+$ pip install -r requirements.txt
+$ python manage.py db upgrade
+$ export FLASK_APP=manage.py
+$ export FLASK_ENV=development
+$ flask run --host=0.0.0.0
 ```
 
 http://0.0.0.0:5000/ にアクセス
