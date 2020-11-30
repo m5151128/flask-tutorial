@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  app:
+  app_flaskr:
     build:
       context: .
       dockerfile: ./docker/python/Dockerfile
@@ -11,7 +11,7 @@ services:
       - ./:/var/www:delegated
     tty: true
 
-  db:
+  db_flaskr:
     image: mysql:latest
     restart: always
     environment:

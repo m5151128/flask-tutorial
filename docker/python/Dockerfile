@@ -1,3 +1,3 @@
 FROM python:latest
 
-WORKDIR /var/www
+WORKDIR /var/www/flaskr
