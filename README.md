@@ -17,21 +17,10 @@ $ git clone https://github.com/m5151128/flask-tutorial.git
 
 ```
 $ docker-compose up -d
-```
-
-## セットアップ
-
-```
-$ docker-compose exec app_flaskr bash
-$ pip install -r requirements.txt
-$ python manage.py db upgrade
-$ export FLASK_APP=manage.py
-$ export FLASK_ENV=development
-$ flask run --host=0.0.0.0
+$ docker-compose exec app_flaskr flask db upgrade
 ```
 
 http://localhost:5001 にアクセス
-
 
 ## mysql接続
 
