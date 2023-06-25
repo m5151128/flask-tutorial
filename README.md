@@ -7,14 +7,6 @@
 
 # 実行方法
 
-## git clone
-
-```
-$ git clone https://github.com/m5151128/flask-tutorial.git
-```
-
-## docker環境構築
-
 ```
 $ docker-compose up -d
 $ docker-compose exec app_flaskr flask db upgrade
