@@ -30,7 +30,7 @@ $ export FLASK_ENV=development
 $ flask run --host=0.0.0.0
 ```
 
-http://0.0.0.0:5000/ にアクセス
+http://localhost:5001 にアクセス
 
 
 ## mysql接続
