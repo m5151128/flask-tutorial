@@ -1,6 +1,6 @@
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{user}:{password}@{host}/{db_name}?charset=utf8'.format(**{
-      'user': "root",
-      'password': "root",
+      'user': "user",
+      'password': "password",
       'host': "db_flaskr",
       'db_name': "flaskr"
 })
