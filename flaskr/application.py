@@ -7,3 +7,6 @@ app.config.from_object('config')
 app.secret_key = 'hogehoge'
 
 db = SQLAlchemy(app)
+
+if __name__ == '__main__':
+    app.run(debug=True)

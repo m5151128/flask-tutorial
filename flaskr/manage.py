@@ -3,18 +3,12 @@ import functools
 from application import app, db
 from app.models import Post, User
 from datetime import datetime
-from flask import Flask, Blueprint, flash, g, redirect, render_template, request, session, url_for
+from flask import flash, g, redirect, render_template, request, session, url_for
 from flask_debugtoolbar import DebugToolbarExtension
-from flask_sqlalchemy import SQLAlchemy
-from flask_script import Manager
-from flask_migrate import Migrate, MigrateCommand
+from flask_migrate import Migrate
 from werkzeug.security import check_password_hash, generate_password_hash
 
 migrate = Migrate(app, db)
-
-manager = Manager(app)
-manager.add_command('db', MigrateCommand)
-
 toolbar = DebugToolbarExtension(app)
 
 
@@ -182,5 +176,5 @@ def logout():
     return redirect(url_for('login'))
 
 
-if __name__ == '__main__':
-    manager.run()
+# if __name__ == '__main__':
+    # manager.run()
